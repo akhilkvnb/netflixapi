@@ -186,7 +186,7 @@ class _HomeState extends State<Home> {
                     )
                   ],
                 ),
-                width: double.infinity, height: 100,
+                width: double.infinity,
                 // height: MediaQuery.of(context).size.height * 0.06,
                 decoration: const BoxDecoration(
                     image: DecorationImage(
@@ -224,7 +224,7 @@ class _HomeState extends State<Home> {
           SliverToBoxAdapter(
             child: Container(
                 color: Colors.black,
-                height: MediaQuery.of(context).size.height * 0.35,
+                height: MediaQuery.of(context).size.height * 0.28,
                 child: SizedBox(
                   child: ListView.builder(
                       scrollDirection: Axis.horizontal,
@@ -275,25 +275,6 @@ class _HomeState extends State<Home> {
                                   ),
                                 ),
                               ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(right: 20, left: 20),
-                                child: SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.05,
-                                  // width: MediaQuery.of(context).size.width * 0.02,
-                                  child: Center(
-                                    child: Text(
-                                      trendingmovies[index]['title'] ??
-                                          'Loading..',
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                      ),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                ),
-                              )
                             ],
                           ),
                         );
@@ -329,7 +310,7 @@ class _HomeState extends State<Home> {
           SliverToBoxAdapter(
             child: Container(
                 color: Colors.black,
-                height: MediaQuery.of(context).size.height * 0.35,
+                height: MediaQuery.of(context).size.height * 0.28,
                 child: SizedBox(
                   child: ListView.builder(
                       scrollDirection: Axis.horizontal,
@@ -382,20 +363,6 @@ class _HomeState extends State<Home> {
                                   ),
                                 ),
                               ),
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.05,
-                                width: MediaQuery.of(context).size.width * 0.4,
-                                child: Center(
-                                  child: Text(
-                                    topratedmovies[index]['title'] ??
-                                        'Loading..',
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                              )
                             ],
                           ),
                         );
@@ -433,7 +400,7 @@ class _HomeState extends State<Home> {
           SliverToBoxAdapter(
             child: Container(
                 color: Colors.black,
-                height: MediaQuery.of(context).size.height * 0.35,
+                height: MediaQuery.of(context).size.height * 0.28,
                 child: SizedBox(
                   child: ListView.builder(
                       scrollDirection: Axis.horizontal,
@@ -476,16 +443,6 @@ class _HomeState extends State<Home> {
                                   ),
                                 ),
                               ),
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.05,
-                                child: Center(
-                                  child: Text(
-                                    tv[index]['original_name'] ?? 'Loading..',
-                                    style: const TextStyle(color: Colors.white),
-                                  ),
-                                ),
-                              )
                             ],
                           ),
                         );
