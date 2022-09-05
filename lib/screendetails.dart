@@ -11,6 +11,7 @@ class ScreenDetails extends StatelessWidget {
       this.launchon})
       : super(key: key);
   final String? name, description, bannerurl, posterurl, vote, launchon;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

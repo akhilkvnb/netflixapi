@@ -5,7 +5,7 @@ import 'package:netflix/screen_search.dart';
 import 'package:netflix/screen_home.dart';
 
 class ScreenBottom extends StatefulWidget {
-  ScreenBottom({Key? key}) : super(key: key);
+  const ScreenBottom({Key? key}) : super(key: key);
 
   @override
   State<ScreenBottom> createState() => _ScreenBottomState();

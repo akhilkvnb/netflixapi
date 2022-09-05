@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:netflix/screendetails.dart';
+import 'package:netflix/toprated.dart';
+import 'package:netflix/trendingnow.dart';
+import 'package:netflix/tvshows.dart';
 import 'package:tmdb_api/tmdb_api.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
+  static List trendingmovies = [];
+  static List topratedmovies = [];
+  static List tv = [];
+  static List comingsoon = [];
   @override
   State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  List trendingmovies = [];
   final String apikey = '6b90848ea929bdd3ea1c08df1ad1f331';
   final readaccesstoken =
       'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2YjkwODQ4ZWE5MjliZGQzZWExYzA4ZGYxYWQxZjMzMSIsInN1YiI6IjYyYWQ4ODYxMGQ5ZjVhMDA5NDIxYTdlNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ggODArE8MFRBCcvWxQYXCKsQYo98yeN6aA4L4HezaZc';
-  List topratedmovies = [];
-  List tv = [];
 
   @override
   void initState() {
@@ -28,11 +31,12 @@ class _HomeState extends State<Home> {
     Map trendingresults = await tmdbWithCustomeLogs.v3.trending.getTrending();
     Map topratedresults = await tmdbWithCustomeLogs.v3.movies.getTopRated();
     Map tvresuls = await tmdbWithCustomeLogs.v3.tv.getPopular();
-
+    Map comingmoviesresults = await tmdbWithCustomeLogs.v3.movies.getUpcoming();
     setState(() {
-      trendingmovies = trendingresults['results'];
-      topratedmovies = topratedresults['results'];
-      tv = tvresuls['results'];
+      Home.trendingmovies = trendingresults['results'];
+      Home.topratedmovies = topratedresults['results'];
+      Home.tv = tvresuls['results'];
+      Home.comingsoon = comingmoviesresults['results'];
     });
   }
 
@@ -221,66 +225,7 @@ class _HomeState extends State<Home> {
               ),
             ),
           ),
-          SliverToBoxAdapter(
-            child: Container(
-                color: Colors.black,
-                height: MediaQuery.of(context).size.height * 0.28,
-                child: SizedBox(
-                  child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: trendingmovies.length,
-                      itemBuilder: (BuildContext ctx, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(top: 8),
-                          child: Column(
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (ctx) => ScreenDetails(
-                                          name: trendingmovies[index]['title'],
-                                          description: trendingmovies[index]
-                                              ['overview'],
-                                          bannerurl:
-                                              'http://image.tmdb.org/t/p/w500' +
-                                                  trendingmovies[index]
-                                                      ['backdrop_path'],
-                                          posterurl:
-                                              'http://image.tmdb.org/t/p/w500' +
-                                                  trendingmovies[index]
-                                                      ['poster_path'],
-                                          vote: trendingmovies[index]
-                                                  ['vote_average']
-                                              .toString(),
-                                          launchon: trendingmovies[index]
-                                              ['release_date'])));
-                                },
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 8, right: 8),
-                                  child: Container(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.26,
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.4,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        image: DecorationImage(
-                                            image: NetworkImage(
-                                              'http://image.tmdb.org/t/p/w500' +
-                                                  trendingmovies[index]
-                                                      ['poster_path'],
-                                            ),
-                                            fit: BoxFit.fill)),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                      }),
-                )),
-          ),
+          const SliverToBoxAdapter(child: TrendingNow()),
           //<<<<<<<<..................E.N.D.I.N.G.......T.R.E.N.D.I.N.G....................>>>>>/////
 //---------------------------------------------------------------------------------------------/////
           //<<<<<<<<.........................T.O.P....R.A.T.E.D.....................>>>>>/////
@@ -307,73 +252,10 @@ class _HomeState extends State<Home> {
               ),
             ),
           ),
-          SliverToBoxAdapter(
-            child: Container(
-                color: Colors.black,
-                height: MediaQuery.of(context).size.height * 0.28,
-                child: SizedBox(
-                  child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: topratedmovies.length,
-                      itemBuilder: (BuildContext ctx, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(top: 8),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (ctx) => ScreenDetails(
-                                          name: topratedmovies[index]['title'],
-                                          description: topratedmovies[index]
-                                              ['overview'],
-                                          bannerurl:
-                                              'http://image.tmdb.org/t/p/w500' +
-                                                  topratedmovies[index]
-                                                      ['backdrop_path'],
-                                          posterurl:
-                                              'http://image.tmdb.org/t/p/w500' +
-                                                  topratedmovies[index]
-                                                      ['poster_path'],
-                                          vote: topratedmovies[index]
-                                                  ['vote_average']
-                                              .toString(),
-                                          launchon: topratedmovies[index]
-                                              ['release_date'])));
-                                },
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 8, right: 8),
-                                  child: Container(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.26,
-                                    width: MediaQuery.of(context).size.width *
-                                        0.45,
-                                    // child: Image.asset('assets/money.jpg',fit: BoxFit.cover,),
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        image: DecorationImage(
-                                            image: NetworkImage(
-                                              'http://image.tmdb.org/t/p/w500' +
-                                                  topratedmovies[index]
-                                                      ['poster_path'],
-                                            ),
-                                            fit: BoxFit.fill)),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                      }),
-                )),
-          ),
-          //<<<<<<<<......................E.N.D.I.N.G...T.O.P....R.A.T.E.D.....................>>>>>/////
+          const SliverToBoxAdapter(child: TopRated()),
+          //<<<<<<<<.........E.N.D.I.N.G...T.O.P....R.A.T.E.D.....>>>>>/////
 
-          //----------------------------------------------------------------------------------------////
-
-          //<<<<<.........................T.V...S.H.O.W.S..........................>>>>>>>////
+          //<<<<<.............T.V...S.H.O.W.S...........>>>>>>>////
           SliverToBoxAdapter(
             child: Container(
               height: 60,
@@ -397,58 +279,7 @@ class _HomeState extends State<Home> {
               ),
             ),
           ),
-          SliverToBoxAdapter(
-            child: Container(
-                color: Colors.black,
-                height: MediaQuery.of(context).size.height * 0.28,
-                child: SizedBox(
-                  child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: tv.length,
-                      itemBuilder: (BuildContext ctx, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(top: 8),
-                          child: Column(
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (ctx) => ScreenDetails(
-                                          name: tv[index]['title'],
-                                          description: tv[index]['overview'],
-                                          bannerurl:
-                                              'http://image.tmdb.org/t/p/w500' +
-                                                  tv[index]['backdrop_path'],
-                                          posterurl:
-                                              'http://image.tmdb.org/t/p/w500' +
-                                                  tv[index]['poster_path'],
-                                          vote: tv[index]['vote_average']
-                                              .toString(),
-                                          launchon: tv[index]
-                                              ['first_air_date'])));
-                                },
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 8, right: 8),
-                                  child: Container(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.26,
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.4,
-                                    decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                            image: NetworkImage(
-                                                'http://image.tmdb.org/t/p/w500' +
-                                                    tv[index]['poster_path']))),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                      }),
-                )),
-          ),
+          const SliverToBoxAdapter(child: TvShows()),
           //<<<<<.....................E.N.D.I.N.G....T.V...S.H.O.W.S..........................>>>>>>>////
         ],
       ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:netflix/screen_bottom.dart';
-import 'package:netflix/screen_home.dart';
 
 class ScreenSplash extends StatefulWidget {
   const ScreenSplash({Key? key}) : super(key: key);

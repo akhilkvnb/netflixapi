@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:netflix/screen_home.dart';
+
 import 'package:netflix/screen_splash.dart';
 
 void main() {
